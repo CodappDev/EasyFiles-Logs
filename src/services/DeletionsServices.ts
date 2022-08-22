@@ -1,5 +1,9 @@
 import { prisma } from "../prisma";
-import { DeletionCreateData, DeletionDeleteData } from "../interfaces/DeletionsInterfaces";
+import {
+  DeletionCreateData,
+  DeletionDeleteData,
+  DeletionGetData,
+} from "../interfaces/DeletionsInterfaces";
 export class DeletionsServices {
   async create(data: DeletionCreateData) {
     data.createdAt = new Date();
@@ -11,13 +15,35 @@ export class DeletionsServices {
     });
   }
 
-  async delete({ids}: DeletionDeleteData){
+  async delete({ ids }: DeletionDeleteData) {
     await prisma.deletions.deleteMany({
       where: {
         id: {
-          in: ids
-        }
-      }
+          in: ids,
+        },
+      },
+    });
+  }
+
+  async get({
+    organizationId,
+    fileId,
+    groupId,
+    repositoryId,
+    teamId,
+    type,
+    userId,
+  }: DeletionGetData) {
+    return await prisma.deletions.findMany({
+      where: {
+        organizationId,
+        fileId: { contains: fileId ?? "" },
+        groupId: { contains: groupId ?? "" },
+        repositoryId: { contains: repositoryId ?? "" },
+        teamId: { contains: teamId ?? "" },
+        type: { contains: type ?? "" },
+        userId: { contains: userId ?? "" },
+      },
     });
   }
 }

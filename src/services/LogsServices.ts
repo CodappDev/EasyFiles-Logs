@@ -1,4 +1,8 @@
-import { LogCreateData, LogDeleteData } from "../interfaces/LogsInterfaces";
+import {
+  LogCreateData,
+  LogDeleteData,
+  LogGetData,
+} from "../interfaces/LogsInterfaces";
 import { prisma } from "../prisma";
 
 export class LogsServices {
@@ -15,6 +19,31 @@ export class LogsServices {
         id: {
           in: ids,
         },
+      },
+    });
+  }
+
+  async get({
+    organizationId,
+    createdAt,
+    fileId,
+    groupId,
+    repositoryId,
+    teamId,
+    text,
+    type,
+    userId,
+  }: LogGetData) {
+    return await prisma.log.findMany({
+      where: {
+        organizationId,
+        fileId: fileId ?? null,
+        groupId: groupId ?? null,
+        repositoryId: repositoryId ?? null,
+        teamId: teamId ?? null,
+        text: { contains: text ?? "" },
+        type: { contains: type ?? "" },
+        userId: userId ?? null,
       },
     });
   }

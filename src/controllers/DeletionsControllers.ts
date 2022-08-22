@@ -1,3 +1,4 @@
+import { DeletionGetData } from './../interfaces/DeletionsInterfaces';
 import { Request, Response } from "express";
 import { DeletionCreateData, DeletionDeleteData } from "../interfaces/DeletionsInterfaces";
 import { DeletionsServices } from "../services/DeletionsServices";
@@ -22,6 +23,16 @@ export class DeletionsControllers {
             response.status(200).send();
         } catch (error) {
             response.status(400).send(error);
+        }
+    }
+
+    async get(request: Request, response: Response){
+        const deletionData = request.params;
+        try {
+            const deletions = await service.get(deletionData);
+            response.status(200).send(deletions);
+        } catch (error) {
+            
         }
     }
 }

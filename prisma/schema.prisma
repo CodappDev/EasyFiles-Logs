@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Log {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt      DateTime
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   text           String
   type           String
@@ -25,8 +25,8 @@ model Log {
 }
 
 model Access {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt      DateTime
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   organizationId String
   userId         String
@@ -35,8 +35,8 @@ model Access {
 }
 
 model Deletions {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt      DateTime
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   organizationId String
   type           String
@@ -46,4 +46,28 @@ model Deletions {
   repositoryId   String?
   fileId         String?
   expiration     DateTime
+}
+
+model NotificationsPop {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  type         String
+  userId       String
+  updateId     String?
+  repositoryId String?
+  fileId       String?
+
+  Update Updates? @relation(fields: [updateId], references: [id])
+}
+
+model Updates {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt        DateTime           @default(now())
+  type             String
+  users            String[]
+  teams            String[]
+  teamId           String
+  repositoryId     String?
+  fileId           String?
+  NotificationsPop NotificationsPop[]
 }
