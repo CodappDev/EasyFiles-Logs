@@ -2,7 +2,6 @@ export interface NotificationPopCreateData {
     type: string;
     userId: string;
     updateId?: string;
-    repositoryId?: string;
     fileId?: string;
 }
 

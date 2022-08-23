@@ -10,3 +10,11 @@ export interface UpdatesCreateData {
     text?: string;
     version?: string;
 }
+
+export interface UpdatesDeleteData {
+    ids: string[]
+}
+export interface UpdateGetUserData{
+    fileIds: string[];
+    userId: string;
+}

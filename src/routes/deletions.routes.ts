@@ -7,4 +7,4 @@ deletionsRoutes.post("/", new DeletionsControllers().create);
 
 deletionsRoutes.delete("/", new DeletionsControllers().delete);
 
-deletionsRoutes.get("/", new DeletionsControllers().get);
+// deletionsRoutes.get("/", new DeletionsControllers().get);

@@ -20,19 +20,19 @@ export class DeletionsControllers {
         const deletionDelete = request.body as DeletionDeleteData;
         try {
             await service.delete(deletionDelete);
-            response.status(200).send();
+            return response.status(200).send();
         } catch (error) {
-            response.status(400).send(error);
+            return response.status(400).send(error);
         }
     }
 
-    async get(request: Request, response: Response){
-        const deletionData = request.query;
-        try {
-            const deletions = await service.get(deletionData as any);
-            response.status(200).send(deletions);
-        } catch (error) {
+    // async get(request: Request, response: Response){
+    //     const deletionData = request.query;
+    //     try {
+    //         const deletions = await service.get(deletionData as any);
+    //         return response.status(200).send(deletions);
+    //     } catch (error) {
             
-        }
-    }
+    //     }
+    // }
 }

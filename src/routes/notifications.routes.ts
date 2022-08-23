@@ -1,7 +1,7 @@
 import { NotificationsControllers } from "./../controllers/NotificationsControllers";
 import { Router } from "express";
 
-const notificationsRoutes = Router();
+export const notificationsRoutes = Router();
 
 notificationsRoutes.post("/", new NotificationsControllers().create);
 
