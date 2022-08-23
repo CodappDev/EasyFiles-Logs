@@ -49,25 +49,29 @@ model Deletions {
 }
 
 model NotificationsPop {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime @default(now())
-  type         String
-  userId       String
-  updateId     String?
-  repositoryId String?
-  fileId       String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  type      String
+  userId    String
+  updateId  String?
+  fileId    String?
 
   Update Updates? @relation(fields: [updateId], references: [id])
 }
 
 model Updates {
-  id               String             @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt        DateTime           @default(now())
-  type             String
-  users            String[]
-  teams            String[]
-  teamId           String
-  repositoryId     String?
-  fileId           String?
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  type         String
+  users        String[]
+  teams        String[]
+  teamId       String?
+  repositoryId String?
+  fileId       String?
+  authorId     String?
+  title        String?
+  text         String?
+  version      String?
+
   NotificationsPop NotificationsPop[]
 }

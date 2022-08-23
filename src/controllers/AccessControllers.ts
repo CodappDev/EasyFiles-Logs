@@ -1,12 +1,16 @@
+import { NotificationsPopServices } from './../services/NotificationsPopServices';
 import { AccessCreateData } from './../interfaces/AccessInterfaces';
 import { Request, Response } from "express";
 import { AccessServices } from '../services/AccessServices';
 
 const service = new AccessServices();
 
+const testeS = new NotificationsPopServices()
+
 export class AccessControllers {
     async create(request: Request, response: Response){
         const accessData = request.body as AccessCreateData;
+        
         try {
             await service.create(accessData);
             response.status(200).send();

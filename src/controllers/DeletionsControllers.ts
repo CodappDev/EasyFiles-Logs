@@ -27,9 +27,9 @@ export class DeletionsControllers {
     }
 
     async get(request: Request, response: Response){
-        const deletionData = request.params;
+        const deletionData = request.query;
         try {
-            const deletions = await service.get(deletionData);
+            const deletions = await service.get(deletionData as any);
             response.status(200).send(deletions);
         } catch (error) {
             
