@@ -15,7 +15,6 @@ export class AccessControllers {
             await service.create(accessData);
             response.status(200).send();
         } catch (error) {
-            console.log(error)
             response.status(400).json({message: 'Error creating access'});
         }
     }

@@ -31,12 +31,10 @@ export class UpdatesControllers {
 
   async getAllUser(request: Request, response: Response){
     const {userId, fileIds} = request.body
-    console.log(3)
     try {
       const updates = await service.getAllUser({ fileIds, userId });
       return response.status(200).send(updates);
     } catch (error) {
-      console.log(error)
       return response
         .status(400)
         .json({ message: "Erro ao deletar atualizações" });

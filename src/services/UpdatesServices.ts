@@ -38,8 +38,9 @@ export class UpdatesServices {
   async getAllUser({ userId, fileIds }: UpdateGetUserData) {
     const updates = await prisma.updates.findMany({
       where: { users: { hasSome: userId } },
+      include: {NotificationsPop: true},
+      take: 10
     });
-    console.log(updates, userId)
     const notifications = await prisma.notificationsPop.findMany({
       where: {
         fileId:{in: fileIds}
