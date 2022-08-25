@@ -38,8 +38,9 @@ export class UpdatesServices {
   async getAllUser({ userId, fileIds }: UpdateGetUserData) {
     const updates = await prisma.updates.findMany({
       where: { users: { hasSome: userId } },
+      orderBy: {createdAt: 'desc'},
       include: {NotificationsPop: true},
-      take: 10
+      take: 10,
     });
     const notifications = await prisma.notificationsPop.findMany({
       where: {
