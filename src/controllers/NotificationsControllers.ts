@@ -8,8 +8,8 @@ export class NotificationsControllers {
   async create(request: Request, response: Response) {
     const notificationData = request.body as NotificationPopCreateData;
     try {
-      await service.create(notificationData);
-      return response.status(201).send();
+      const notification = await service.create(notificationData);
+      return response.status(201).json(notification);
     } catch (error) {
       return response
         .status(400)

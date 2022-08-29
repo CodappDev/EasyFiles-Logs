@@ -8,7 +8,7 @@ import {
 
 export class NotificationsPopServices {
   async create(data: NotificationPopCreateData) {
-    await prisma.notificationsPop.create({
+    return await prisma.notificationsPop.create({
       data,
     });
   }
