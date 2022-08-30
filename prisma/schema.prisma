@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Log {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  text           String
+  type           String
+  organizationId String
+  userId         String?
+  teamId         String?
+  groupId        String?
+  repositoryId   String?
+  fileId         String?
+}
+
+model Access {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  organizationId String
+  userId         String
+  userName       String
+  userEmail      String
+}
+
+model Deletions {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  organizationId String
+  type           String
+  userId         String?
+  teamId         String?
+  groupId        String?
+  repositoryId   String?
+  fileId         String?
+  expiration     DateTime
+}
+
+model NotificationsPop {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  type      String
+  userId    String
+  updateId  String?
+  fileId    String?
+
+  Update Updates? @relation(fields: [updateId], references: [id])
+}
+
+model Updates {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  type         String
+  users        String[]
+  teams        String[]
+  teamId       String?
+  repositoryId String?
+  fileId       String?
+  authorId     String?
+  title        String?
+  text         String?
+  version      String?
+
+  NotificationsPop NotificationsPop[]
+}
